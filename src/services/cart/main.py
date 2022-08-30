@@ -31,14 +31,18 @@ async def get_all_carts():
 
 
 @app.get("/carts/{cart_id}")
-async def cart_detail(cart_id: int):
-    query = select(Cart).where(Cart.id == cart_id)
-    return await database.fetch_all(query=query)
+async def get_cart(cart_id: int):
+    try:
+        query = select(Cart).where(Cart.id == cart_id)
+        res = await database.fetch_all(query=query)
+    except Exception as e:
+        return HTTPException(status_code=400, detail=str(e))
+    return res
 
 
 @app.post("/carts")
-async def cart_add(payload: CartIn):
-    query = insert(Cart).values(**payload.dict())
+async def cart_add():
+    query = insert(Cart).values()
     try:
         res = await database.execute(query=query)
     except Exception as e:

@@ -1,0 +1,22 @@
+version: "3.9"
+services:
+  # Shopping cart entry
+  entry:
+    volumes:
+      - '${PWD}/src/services:/home/app/services'
+  # REST API
+  user:
+    volumes:
+      - '${PWD}/src/services:/home/app/services'
+  product:
+    volumes:
+      - '${PWD}/src/services:/home/app/services'
+  cart:
+    volumes:
+      - '${PWD}/src/services:/home/app/services'
+  cart_detail:
+    volumes:
+      - '${PWD}/src/services:/home/app/services'
+  order:
+    volumes:
+      - '${PWD}/src/services:/home/app/services'

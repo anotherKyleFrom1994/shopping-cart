@@ -33,7 +33,11 @@ async def get_all_products():
 @app.get("/products/{product_id}")
 async def product_detail(product_id: int):
     query = select(Product).where(Product.id == product_id)
-    return await database.fetch_all(query=query)
+    res = await database.fetch_all(query=query)
+
+    if not res:
+        raise HTTPException(status_code=404, detail="Item not found")
+    return res
 
 
 @app.post("/products")

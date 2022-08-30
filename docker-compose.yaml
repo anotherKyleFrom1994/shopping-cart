@@ -1,0 +1,65 @@
+version: "3.9"
+services:
+  database:
+    image: postgres
+    container_name: db-instance
+    environment:
+      POSTGRES_PASSWORD: mysecretpassword
+    ports:
+      - "5432:5432"
+  user:
+    container_name: user
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+      args:
+        SERVICE_CODEBASE: ./src/services
+        MODULE: user
+    ports:
+      - "8001:8000"
+    links:
+      - database
+    depends_on:
+      - database
+  product:
+    container_name: product
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+      args:
+        SERVICE_CODEBASE: ./src/services
+        MODULE: product
+    ports:
+      - "8002:8000"
+    links:
+      - database
+    depends_on:
+      - database
+  cart:
+    container_name: cart
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+      args:
+        SERVICE_CODEBASE: ./src/services
+        MODULE: cart
+    ports:
+      - "8003:8000"
+    links:
+      - database
+    depends_on:
+      - database
+  order:
+    container_name: order
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+      args:
+        SERVICE_CODEBASE: ./src/services
+        MODULE: order
+    ports:
+      - "8004:8000"
+    links:
+      - database
+    depends_on:
+      - database

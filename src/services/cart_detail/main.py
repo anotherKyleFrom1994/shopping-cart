@@ -37,5 +37,5 @@ async def cart_detail_add(payload: CartDetailIn):
     try:
         res = await database.execute(query=query)
     except Exception as e:
-        return HTTPException(status_code=400, detail=str(e))
+        raise HTTPException(status_code=400, detail=str(e))
     return res

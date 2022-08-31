@@ -48,24 +48,3 @@ async def product_add(payload: ProductIn):
     except Exception as e:
         return HTTPException(status_code=400, detail=str(e))
     return res
-
-
-# @app.put("/products/{product_id}")
-# def product_update(product: product, product_id: int):
-#     product_check(product_id)
-#     product[product_id].update(product)
-
-#     return {"product": product[product_id]}
-
-
-# @app.delete("/products/{product_id}")
-# def product_delete(product_id: int):
-#     product_check(product_id)
-#     del product[product_id]
-
-#     return {"products": product}
-
-
-# def product_check(product_id):
-#     if not product[product_id]:
-#         raise HTTPException(status_code=404, detail="product Not Found")

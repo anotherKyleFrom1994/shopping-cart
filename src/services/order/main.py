@@ -1,5 +1,5 @@
 from fastapi import FastAPI, HTTPException, status
-from sqlalchemy import select, insert
+from sqlalchemy import select, insert, update
 from .model import *
 from ..database import database, engine, Base
 from ..database.model import Order
@@ -42,26 +42,15 @@ async def order_add(payload: OrderIn):
     try:
         res = await database.execute(query=query)
     except Exception as e:
-        return HTTPException(status_code=400, detail=str(e))
+        raise HTTPException(status_code=400, detail=str(e))
     return res
 
 
-# @app.put("/orders/{order_id}")
-# def order_update(order: Order, order_id: int):
-#     order_check(order_id)
-#     order[order_id].update(order)
-
-#     return {"order": order[order_id]}
-
-
-# @app.delete("/orders/{order_id}")
-# def order_delete(order_id: int):
-#     order_check(order_id)
-#     del order[order_id]
-
-#     return {"orders": order}
-
-
-# def order_check(order_id):
-#     if not order[order_id]:
-#         raise HTTPException(status_code=404, detail="order Not Found")
+@app.put("/orders")
+async def order_update(payload: OrderUpdateIn):
+    query = update(Order).where(Order.id == payload.id).values(**payload.dict())
+    try:
+        res = await database.execute(query=query)
+    except Exception as e:
+        raise e
+    return res

@@ -42,26 +42,5 @@ async def user_add(payload: UserIn):
     try:
         res = await database.execute(query=query)
     except Exception as e:
-        return HTTPException(status_code=400, detail=str(e))
+        raise HTTPException(status_code=400, detail=str(e))
     return res
-
-
-# @app.put("/users/{user_id}")
-# def user_update(user: user, user_id: int):
-#     user_check(user_id)
-#     user[user_id].update(user)
-
-#     return {"user": user[user_id]}
-
-
-# @app.delete("/users/{user_id}")
-# def user_delete(user_id: int):
-#     user_check(user_id)
-#     del user[user_id]
-
-#     return {"users": user}
-
-
-# def user_check(user_id):
-#     if not user[user_id]:
-#         raise HTTPException(status_code=404, detail="user Not Found")

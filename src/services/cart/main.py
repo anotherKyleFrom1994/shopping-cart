@@ -36,7 +36,7 @@ async def get_cart(cart_id: int):
         query = select(Cart).where(Cart.id == cart_id)
         res = await database.fetch_all(query=query)
     except Exception as e:
-        return HTTPException(status_code=400, detail=str(e))
+        raise HTTPException(status_code=400, detail=str(e))
     return res
 
 
@@ -46,21 +46,5 @@ async def cart_add():
     try:
         res = await database.execute(query=query)
     except Exception as e:
-        return HTTPException(status_code=400, detail=str(e))
+        raise HTTPException(status_code=400, detail=str(e))
     return res
-
-
-# @app.put("/carts/{cart_id}")
-# def cart_update(cart: Cart, cart_id: int):
-#     cart_check(cart_id)
-#     cart[cart_id].update(cart)
-
-#     return {"cart": cart[cart_id]}
-
-
-# @app.delete("/carts/{cart_id}")
-# def cart_delete(cart_id: int):
-#     cart_check(cart_id)
-#     del cart[cart_id]
-
-#     return {"carts": cart}

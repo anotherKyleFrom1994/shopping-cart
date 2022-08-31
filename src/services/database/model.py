@@ -1,6 +1,6 @@
 from enum import unique
 from ..database import Base
-from sqlalchemy import Column, Integer, ForeignKey, String, DECIMAL, Sequence
+from sqlalchemy import Column, Integer, ForeignKey, String, DECIMAL, Boolean
 
 
 class User(Base):
@@ -34,3 +34,4 @@ class Order(Base):
     id = Column(Integer, primary_key=True)
     cart_id = Column(Integer, ForeignKey("cart.id"), nullable=False)
     user_id = Column(Integer, ForeignKey("user.id"), nullable=False)
+    status = Column(String, nullable=False)

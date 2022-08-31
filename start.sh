@@ -1,3 +1,2 @@
 #!/bin/bash
-docker build -t base-runtime -f ./docker/base/Dockerfile .
-docker-compose up --build
+docker-compose -f docker-compose.yaml -f docker-compose.local.yaml up --build

@@ -9,10 +9,16 @@ class CreateProductIn(BaseModel):
     inventory: int
 
 
+class CreateUserIn(BaseModel):
+    name: str
+
+
 class AddItemIn(BaseModel):
     cart_id: Optional[int]
     product_id: int
 
 
 class CheckOutIn(BaseModel):
-    pass
+    order_id: Optional[int]
+    cart_id: int
+    user_id: int
